@@ -1,7 +1,51 @@
+import { useState } from "react";
 import { useSpeaker } from "../Speaker";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { BASE_URL } from "../config";
 
 export const Phrasebook = () => {
   const sayit = useSpeaker();
+  const [activeCategory, setActiveCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [words, setWords] = useState([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}api/category`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        });
+        const data = await res.json();
+        setCategories(data);
+        setActiveCategory(data[0].title);
+      } catch (error) {}
+    };
+
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    const getWords = async (activeCategory) => {
+      if (!activeCategory) return;
+
+      try {
+        const res = await fetch(`${BASE_URL}api/word/search?category=${activeCategory}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        });
+        const data = await res.json();
+        setWords(data);
+      } catch (error) {}
+    };
+
+    getWords(activeCategory);
+  }, [activeCategory]);
 
   return (
     <>
@@ -10,7 +54,7 @@ export const Phrasebook = () => {
           display: "flex",
           alignItems: "stretch",
           justifyContent: "space-between",
-          marginBottom: "20px"
+          marginBottom: "20px",
         }}
       >
         <select id="snort" style={{ margin: "0" }} defaultValue="">
@@ -30,82 +74,39 @@ export const Phrasebook = () => {
           style={{
             display: "flex",
             alignItems: "stretch",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
           }}
         >
-          <input
-            type="text"
-            placeholder="word to add"
-            style={{ justifySelf: "flex-end", margin: "0" }}
-          />
-          <button type="button" style={{ margin: "0 0 0 10px" }}>
-            add word
-          </button>
+          <Link to="/add">
+            <button type="button">add word</button>
+          </Link>
         </div>
       </div>
-      <article onClick={sayit}>
-        <aside>
-          <p>Directions</p>
-        </aside>
-        <ul>
-          <li>
-            North - <span data-say="Север">Север</span>
-          </li>
-          <li>
-            South - <span data-say="Юг">Юг</span>
-          </li>
-          <li>
-            West - <span data-say="Запад">Запад</span>
-          </li>
-          <li>
-            East - <span data-say="Восток">Восток</span>
-          </li>
-          ...
-        </ul>
-        <br />
-        <aside>
-          <p>Places</p>
-        </aside>
-        <ul>
-          <li>
-            Space center - <span data-say="Космодром">Космодром</span>
-          </li>
-          <li>
-            Launch Pad - <span data-say="Стартовый стол">Стартовый стол</span>
-          </li>
-          ...
-        </ul>
-        <br />
-        <aside>
-          <p>Events</p>
-        </aside>
-        <ul>
-          <li>
-            Launch - <span data-say="Запуск">Запуск</span>
-          </li>
-          <li>
-            Docking - <span data-say="Стыковка">Стыковка</span>
-          </li>
-          ...
-        </ul>
-        <br />
-        <aside>
-          <p>Rocket parts</p>
-        </aside>
-        <ul>
-          <li>
-            Engine - <span data-say="Двигатель">Двигатель</span>
-          </li>
-          <li>
-            Stage - <span data-say="Ступень">Ступень</span>
-          </li>
-          ...
-        </ul>
-        <br />
-        <aside>
-          <p>...</p>
-        </aside>
-      </article>
+      <br />
+      <div style={{ display: "flex", height: "100vh" }}>
+        <div style={{ flex: "1" }}>
+          {categories.map((c) => (
+            <article key={c._id}>
+              <aside
+                onClick={() => setActiveCategory(c.title)}
+                style={{ cursor: "pointer" }}
+              >
+                <p>{c.title}</p>
+              </aside>
+              <br />
+            </article>
+          ))}
+        </div>
+        <div style={{ flex: "3" }} onClick={sayit}>
+          <ul>
+            {words.map((w) => (
+              <li key={w._id}>
+                {w.english} - <span data-say={w.russian}>{w.russian}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </>
   );
 };
