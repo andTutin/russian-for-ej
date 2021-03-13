@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../config";
 
 export const Register = () => {
   const [form, setForm] = useState({
@@ -17,12 +18,12 @@ export const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("api/auth/register", {
+      const res = await fetch(`${BASE_URL}api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
-        body: JSON.stringify({ ...form }),
+        body: JSON.stringify(form),
       });
       if (res.ok) alert("Пользователь добавлен");
       setForm({

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../config";
 
 export const Wordform = ({ categories }) => {
   const [word, setWord] = useState({
@@ -18,12 +19,12 @@ export const Wordform = ({ categories }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("api/word/add", {
+      const res = await fetch(`${BASE_URL}api/word/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
-        body: JSON.stringify(word),
+        body: JSON.stringify({...word, userId: JSON.parse(localStorage.getItem('userData')).userId}),
       });
 
       if (res.ok) {

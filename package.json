@@ -1,42 +1,42 @@
 {
   "name": "russian-for-ej",
-  "version": "1.0.0",
-  "description": "english - russian space related phrasebook",
-  "keywords": [
-    "mongodb",
-    "express",
-    "react",
-    "node",
-    "mern",
-    "webspeech"
-  ],
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andTutin/russian-for-ej.git"
-  },
-  "author": "Andrey Tutin <and.tutin@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/andTutin/russian-for-ej/issues"
-  },
-  "homepage": "https://github.com/andTutin/russian-for-ej#readme",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "config": "^3.3.4",
-    "express": "^4.17.1",
-    "express-validator": "^6.10.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.18"
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "syllables-ru": "1.1.0",
+    "web-vitals": "^1.1.0"
   },
-  "devDependencies": {
-    "concurrently": "^6.0.0",
-    "nodemon": "^2.0.7"
-  }
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "keywords": [],
+  "description": ""
 }

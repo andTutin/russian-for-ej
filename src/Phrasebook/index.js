@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSpeaker } from "../Speaker";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { BASE_URL } from "../config";
 
 export const Phrasebook = () => {
   const sayit = useSpeaker();
@@ -12,7 +13,7 @@ export const Phrasebook = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch("api/category", {
+        const res = await fetch(`${BASE_URL}api/category`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json;charset=utf-8",
@@ -32,12 +33,11 @@ export const Phrasebook = () => {
       if (!activeCategory) return;
 
       try {
-        const res = await fetch("api/word", {
-          method: "POST",
+        const res = await fetch(`${BASE_URL}api/word/search?category=${activeCategory}`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
-          body: JSON.stringify({ category: activeCategory }),
         });
         const data = await res.json();
         setWords(data);
@@ -87,7 +87,10 @@ export const Phrasebook = () => {
         <div style={{ flex: "1" }}>
           {categories.map((c) => (
             <article key={c._id}>
-              <aside onClick={() => setActiveCategory(c.title)} style={{cursor: 'pointer'}}>
+              <aside
+                onClick={() => setActiveCategory(c.title)}
+                style={{ cursor: "pointer" }}
+              >
                 <p>{c.title}</p>
               </aside>
               <br />

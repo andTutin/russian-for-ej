@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../config";
 
 export const Login = ({ login }) => {
   const [form, setForm] = useState({
@@ -17,7 +18,7 @@ export const Login = ({ login }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("api/auth/login", {
+      const res = await fetch(`${BASE_URL}api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
