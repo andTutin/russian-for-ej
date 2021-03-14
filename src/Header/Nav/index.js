@@ -4,13 +4,16 @@ export const Nav = () => {
   return (
     <ul>
       <li>
-        <Link to="/abc">Alphabet</Link>
+        <Link to="/alphabet">Alphabet</Link>
       </li>
       <li>
         <Link to="/reading">How to read</Link>
       </li>
       <li>
-        <Link to="/vocabulary">Phrasebook</Link>
+        <Link to="/phrasebook">Phrasebook</Link>
+      </li>
+      <li>
+        <Link to="/admin">+</Link>
       </li>
     </ul>
   );

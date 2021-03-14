@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Auth } from "../Auth";
 import { BASE_URL } from "../config";
 import { Redirect } from "react-router-dom";
 
@@ -8,7 +9,7 @@ export const Register = () => {
     password: "",
   });
   const [authExpired, setAuthExpired] = useState(false);
-  const { token } = JSON.parse(localStorage.getItem("userData")) || "";
+  const { token } = useContext(Auth);
   const changeHandler = (e) => {
     setForm({
       ...form,

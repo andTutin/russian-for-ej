@@ -3,13 +3,16 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./mvp.css";
 import reportWebVitals from "./reportWebVitals";
+import { AuthProvider } from "./Auth";
 import { SpeakerProvider } from "./Speaker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <SpeakerProvider>
-      <App />
-    </SpeakerProvider>
+    <AuthProvider>
+      <SpeakerProvider>
+        <App />
+      </SpeakerProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

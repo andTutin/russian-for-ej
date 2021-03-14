@@ -3,7 +3,8 @@ import { About } from "./About";
 import { Alphabet } from "./Alphabet";
 import { Reading } from "./Reading";
 import { Phrasebook } from "./Phrasebook";
-import { Addword} from './Addword'
+import { Admin } from "./Admin";
+import { Login } from "./Login";
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,12 +18,13 @@ function App() {
       <Header />
       <main>
         <Switch>
-          <Route path="/about" component={About} />
-          <Route path="/abc" component={Alphabet} />
+          <Route path="/" exact component={About} />
+          <Route path="/alphabet" component={Alphabet} />
           <Route path="/reading" component={Reading} />
-          <Route path="/vocabulary" component={Phrasebook} />
-          <Route path="/add" component={Addword} />
-          <Redirect to="/about" />
+          <Route path="/phrasebook" component={Phrasebook} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/login" component={Login} />
+          <Redirect to="/" />
         </Switch>
       </main>
     </Router>

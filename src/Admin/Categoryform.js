@@ -1,33 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Auth } from "../Auth";
 import { Wordform } from "./Wordform";
-import { Register } from "./Register";
+import { Register } from "./Registerform";
 import { BASE_URL } from "../config";
 import { Redirect } from "react-router-dom";
 
-export const Addmin = () => {
+export const Categoryform = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [authExpired, setAuthExpired] = useState(false);
   const [error, setError] = useState(false);
-  const { token } = JSON.parse(localStorage.getItem("userData")) || '';
-  const categoriesRequest = async () => {
-    try {
-      const res = await fetch(`${BASE_URL}api/category`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-      });
-
-      const data = await res.json();
-
-      setCategories(data);
-    } catch (error) {
-      setError(true);
-    }
-  };
+  const { token } = useContext(Auth);
 
   useEffect(() => {
+    const categoriesRequest = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}api/category`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        });
+
+        const data = await res.json();
+
+        setCategories(data);
+      } catch (error) {
+        setError(true);
+      }
+    };
+
     categoriesRequest();
   }, []);
 
@@ -51,14 +53,14 @@ export const Addmin = () => {
       if (res.ok) {
         const { message, newcategory } = await res.json();
         alert(message);
-        setCategories([...categories, newcategory])
+        setCategories([...categories, newcategory]);
         setCategory("");
       } else {
         const code = res.status;
         const { message } = await res.json();
         const error = { message, code };
 
-        throw error;;
+        throw error;
       }
     } catch (error) {
       alert(error.message);
@@ -99,7 +101,7 @@ export const Addmin = () => {
         </button>
       </form>
       <br />
-      <pre>{error && 'Не удалось загрузить список категорий.'}</pre>
+      <pre>{error && "Не удалось загрузить список категорий."}</pre>
       <Wordform categories={categories} />
       <br />
       <Register />

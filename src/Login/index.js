@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Redirect } from "react-router";
+import { Auth } from "../Auth";
 import { BASE_URL } from "../config";
 
-export const Login = ({ login }) => {
+export const Login = () => {
+  const { login, isLoggedIn } = useContext(Auth);
   const [form, setForm] = useState({
     nickname: "",
     password: "",
@@ -25,10 +28,10 @@ export const Login = ({ login }) => {
         },
         body: JSON.stringify(form),
       });
-      
+
       if (res.ok) {
-        const {token , userId} = await res.json()
-        login(token, userId)
+        const { token, userId } = await res.json();
+        login(token, userId);
       } else {
         const { message } = await res.json();
         const error = { message };
@@ -39,6 +42,8 @@ export const Login = ({ login }) => {
       alert(error.message);
     }
   };
+
+  if (isLoggedIn) return <Redirect to="/admin" />;
 
   return (
     <>
@@ -66,7 +71,12 @@ export const Login = ({ login }) => {
           placeholder="пароль"
           onChange={changeHandler}
         />
-        <button style={{ margin: "0" }} disabled={!(form.nickname && form.password)}>Войти</button>
+        <button
+          style={{ margin: "0" }}
+          disabled={!(form.nickname && form.password)}
+        >
+          Войти
+        </button>
       </form>
       <br />
       <br />

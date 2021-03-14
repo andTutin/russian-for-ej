@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Auth } from "../Auth";
 import { BASE_URL } from "../config";
 
 export const Wordform = ({ categories }) => {
-  const { token } = JSON.parse(localStorage.getItem("userData"));
+  const { token } = useContext(Auth);
   const [word, setWord] = useState({
     english: "",
     russian: "",
@@ -24,7 +25,7 @@ export const Wordform = ({ categories }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(word),
       });
