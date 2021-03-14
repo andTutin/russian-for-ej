@@ -29,8 +29,15 @@ export const Login = ({ login }) => {
       if (res.ok) {
         const {token , userId} = await res.json()
         login(token, userId)
+      } else {
+        const { message } = await res.json();
+        const error = { message };
+
+        throw error;
       }
-    } catch (error) {}
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
