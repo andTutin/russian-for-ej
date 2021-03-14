@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { BASE_URL } from "../config";
+import { Redirect } from "react-router-dom";
 
 export const Register = () => {
   const [form, setForm] = useState({
     nickname: "",
     password: "",
   });
-
+  const [authExpired, setAuthExpired] = useState(false);
+  const { token } = JSON.parse(localStorage.getItem("userData")) || "";
   const changeHandler = (e) => {
     setForm({
       ...form,
@@ -22,18 +24,39 @@ export const Register = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(form),
       });
-      if (res.ok) alert("Пользователь добавлен");
-      setForm({
-        nickname: "",
-        password: "",
-      });
+
+      console.log(res);
+
+      if (res.ok) {
+        alert("Пользователь добавлен");
+        setForm({
+          nickname: "",
+          password: "",
+        });
+      } else {
+        const code = res.status;
+        const { message } = await res.json();
+        const error = { message, code };
+
+        throw error;
+      }
     } catch (error) {
-      alert("Пользователь не добавлен");
+      alert(error.message);
+      if (error.code === 401) {
+        setAuthExpired(true);
+      }
     }
   };
+
+  if (authExpired) {
+    localStorage.removeItem("userData");
+
+    return <Redirect to="/add" />;
+  }
 
   return (
     <>
