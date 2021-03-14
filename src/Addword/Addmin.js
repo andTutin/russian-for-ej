@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import { Wordform } from "./Wordform";
-import {Register} from './Register'
+import { Register } from "./Register";
+import { BASE_URL } from "../config";
+import { Redirect } from "react-router-dom";
 
 export const Addmin = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
-
+  const [authExpired, setAuthExpired] = useState(false);
+  const [error, setError] = useState(false);
+  const { token } = JSON.parse(localStorage.getItem("userData")) || '';
   const categoriesRequest = async () => {
     try {
-      const res = await fetch("api/category", {
+      const res = await fetch(`${BASE_URL}api/category`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
       });
+
       const data = await res.json();
+
       setCategories(data);
-      setCategory("");
-    } catch (error) {}
+    } catch (error) {
+      setError(true);
+    }
   };
 
   useEffect(() => {
@@ -32,25 +39,40 @@ export const Addmin = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("api/category/add", {
+      const res = await fetch(`${BASE_URL}api/category`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ category }),
       });
+
       if (res.ok) {
-        const { message } = await res.json();
+        const { message, newcategory } = await res.json();
         alert(message);
-        categoriesRequest();
+        setCategories([...categories, newcategory])
+        setCategory("");
       } else {
+        const code = res.status;
         const { message } = await res.json();
-        alert(message);
+        const error = { message, code };
+
+        throw error;;
       }
-    } catch (e) {
-      alert('Что-то пошло не так! Попробуйте снова.');
+    } catch (error) {
+      alert(error.message);
+      if (error.code === 401) {
+        setAuthExpired(true);
+      }
     }
   };
+
+  if (authExpired) {
+    localStorage.removeItem("userData");
+
+    return <Redirect to="/add" />;
+  }
 
   return (
     <>
@@ -77,6 +99,7 @@ export const Addmin = () => {
         </button>
       </form>
       <br />
+      <pre>{error && 'Не удалось загрузить список категорий.'}</pre>
       <Wordform categories={categories} />
       <br />
       <Register />

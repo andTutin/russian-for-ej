@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BASE_URL } from "../config";
 
 export const Wordform = ({ categories }) => {
+  const { token } = JSON.parse(localStorage.getItem("userData"));
   const [word, setWord] = useState({
     english: "",
     russian: "",
@@ -19,12 +20,13 @@ export const Wordform = ({ categories }) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${BASE_URL}api/word/`, {
+      const res = await fetch(`${BASE_URL}api/word`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
+          "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({...word, userId: JSON.parse(localStorage.getItem('userData')).userId}),
+        body: JSON.stringify(word),
       });
 
       if (res.ok) {

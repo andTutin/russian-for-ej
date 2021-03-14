@@ -29,8 +29,6 @@ export const Register = () => {
         body: JSON.stringify(form),
       });
 
-      console.log(res);
-
       if (res.ok) {
         alert("Пользователь добавлен");
         setForm({
