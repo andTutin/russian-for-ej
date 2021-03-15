@@ -3,6 +3,7 @@ import { Quote } from "./Quote";
 export const About = () => {
   return (
     <section>
+      {console.log("render about")}
       <header>
         <h1>hullo</h1>
       </header>

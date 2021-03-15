@@ -1,37 +1,11 @@
-import { useEffect, useState, useContext } from "react";
-import { Auth } from "../Auth";
-import { Wordform } from "./Wordform";
-import { Register } from "./Registerform";
+import { useState } from "react";
 import { BASE_URL } from "../config";
 import { Redirect } from "react-router-dom";
 
-export const Categoryform = () => {
+export const CategoryForm = ({ token }) => {
+  console.log(token)
   const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState([]);
   const [authExpired, setAuthExpired] = useState(false);
-  const [error, setError] = useState(false);
-  const { token } = useContext(Auth);
-
-  useEffect(() => {
-    const categoriesRequest = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}api/category`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-        });
-
-        const data = await res.json();
-
-        setCategories(data);
-      } catch (error) {
-        setError(true);
-      }
-    };
-
-    categoriesRequest();
-  }, []);
 
   const changeCategoryHandler = (e) => {
     setCategory(e.target.value);
@@ -51,9 +25,8 @@ export const Categoryform = () => {
       });
 
       if (res.ok) {
-        const { message, newcategory } = await res.json();
+        const { message } = await res.json();
         alert(message);
-        setCategories([...categories, newcategory]);
         setCategory("");
       } else {
         const code = res.status;
@@ -73,7 +46,7 @@ export const Categoryform = () => {
   if (authExpired) {
     localStorage.removeItem("userData");
 
-    return <Redirect to="/add" />;
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -100,11 +73,6 @@ export const Categoryform = () => {
           добавить
         </button>
       </form>
-      <br />
-      <pre>{error && "Не удалось загрузить список категорий."}</pre>
-      <Wordform categories={categories} />
-      <br />
-      <Register />
     </>
   );
 };

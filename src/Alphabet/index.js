@@ -6,6 +6,7 @@ export const Alphabet = () => {
 
   return (
     <article onClick={sayit}>
+      {console.log("render alphabet")}
       <header>
         <h2>Alphabet</h2>
       </header>

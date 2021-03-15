@@ -1,10 +1,12 @@
-import { useState, useContext } from "react";
-import { Redirect } from "react-router";
-import { Auth } from "../Auth";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { BASE_URL } from "../config";
 
 export const Login = () => {
-  const { login, isLoggedIn } = useContext(Auth);
+  const [loginStatus, setLoginStatus] = useState(false);
+  const login = (token) => {
+    localStorage.setItem("userData", JSON.stringify({ token }));
+  };
   const [form, setForm] = useState({
     nickname: "",
     password: "",
@@ -30,8 +32,9 @@ export const Login = () => {
       });
 
       if (res.ok) {
-        const { token, userId } = await res.json();
-        login(token, userId);
+        const { token } = await res.json();
+        login(token);
+        setLoginStatus(true);
       } else {
         const { message } = await res.json();
         const error = { message };
@@ -43,10 +46,11 @@ export const Login = () => {
     }
   };
 
-  if (isLoggedIn) return <Redirect to="/admin" />;
+  if (loginStatus) return <Redirect to="/admin" />;
 
   return (
     <>
+      {console.log("render login")}
       <form
         style={{
           margin: "0 auto",

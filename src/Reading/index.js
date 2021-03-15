@@ -9,6 +9,7 @@ export const Reading = () => {
 
   return (
     <article>
+      {console.log("render reading")}
       <header>
         <h2>This is a Syllables table</h2>
       </header>

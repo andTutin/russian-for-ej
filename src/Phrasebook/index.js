@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSpeaker } from "../Speaker";
-import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { BASE_URL } from "../config";
 
@@ -11,6 +10,7 @@ export const Phrasebook = () => {
   const [errorCats, setErrorCats] = useState(false);
   const [errorWords, setErrorWords] = useState(false);
   const [words, setWords] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -50,6 +50,7 @@ export const Phrasebook = () => {
         );
         const data = await res.json();
         setWords(data);
+        setIsLoading(false);
       } catch (error) {
         setErrorWords(true);
       }
@@ -58,42 +59,11 @@ export const Phrasebook = () => {
     getWords(activeCategory);
   }, [activeCategory]);
 
-  return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "stretch",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <select id="snort" style={{ margin: "0" }} defaultValue="">
-          <option value="" disabled>
-            Snort By:
-          </option>
-          <option value="option1">option1</option>
-          <option value="option2">option2</option>
-        </select>
+  if (isLoading) return null;
 
-        <input
-          type="text"
-          placeholder="word to search"
-          style={{ margin: "0" }}
-        />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "stretch",
-            justifyContent: "space-between",
-          }}
-        >
-          <Link to="/add">
-            <button type="button">add word</button>
-          </Link>
-        </div>
-      </div>
-      <br />
+  return (
+    <> 
+      {console.log("render phrasebook")}
       <div style={{ display: "flex", height: "100vh" }}>
         <div style={{ flex: "1" }}>
           {errorCats && (
@@ -101,7 +71,9 @@ export const Phrasebook = () => {
               "Failed to load Categories list. And this is not my fault"
             </pre>
           )}
-          {!errorCats && categories.length === 0 && <pre>"Categories list is empty"</pre>}
+          {!errorCats && categories.length === 0 && (
+            <pre>"Categories list is empty"</pre>
+          )}
           {categories.map((c) => (
             <article key={c._id}>
               <aside
