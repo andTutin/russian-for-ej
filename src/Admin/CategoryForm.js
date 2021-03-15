@@ -2,8 +2,9 @@ import { useState } from "react";
 import { BASE_URL } from "../config";
 import { Redirect } from "react-router-dom";
 
-export const CategoryForm = ({ token }) => {
-  console.log(token)
+export const CategoryForm = ({ updateSelector }) => {
+  const userData = localStorage.getItem("userData");
+  const token = userData ? JSON.parse(userData).token : "invalid_token";
   const [category, setCategory] = useState("");
   const [authExpired, setAuthExpired] = useState(false);
 
@@ -25,9 +26,10 @@ export const CategoryForm = ({ token }) => {
       });
 
       if (res.ok) {
-        const { message } = await res.json();
+        const { message, newcategory } = await res.json();
         alert(message);
         setCategory("");
+        updateSelector(newcategory);
       } else {
         const code = res.status;
         const { message } = await res.json();

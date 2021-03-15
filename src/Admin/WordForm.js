@@ -1,35 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BASE_URL } from "../config";
 
-export const WordForm = ({ token }) => {
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(false);
+export const WordForm = ({ categories, error }) => {
+  const userData = localStorage.getItem("userData");
+  const token = userData ? JSON.parse(userData).token : "invalid_token";
   const [word, setWord] = useState({
     english: "",
     russian: "",
     category: "",
   });
-
-  useEffect(() => {
-    const categoriesRequest = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}api/category`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-        });
-
-        const data = await res.json();
-
-        setCategories(data);
-      } catch (error) {
-        setError(true);
-      }
-    };
-
-    categoriesRequest();
-  }, [token]);
 
   const changeWordHandler = (e) => {
     setWord({

@@ -2,7 +2,9 @@ import { useState } from "react";
 import { BASE_URL } from "../config";
 import { Redirect } from "react-router-dom";
 
-export const RegisterForm = ({token}) => {
+export const RegisterForm = () => {
+  const userData = localStorage.getItem("userData");
+  const token = userData ? JSON.parse(userData).token : "invalid_token";
   const [form, setForm] = useState({
     nickname: "",
     password: "",
