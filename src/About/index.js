@@ -1,9 +1,12 @@
 import { Quote } from "./Quote";
+import { useSpeaker } from "../Speaker";
 import "./About.css";
 
 export const About = () => {
+  const sayit = useSpeaker();
+
   return (
-    <section className="section home">
+    <section className="section home" onClick={sayit}>
       <h1 className="section__title">hullo</h1>
       <div className="quotes">
         <ul className="quotes__list">
@@ -26,7 +29,7 @@ export const About = () => {
         This page uses WebSpeech API, which is experimental and works norminal
         only in Google Chrome.
       </p>
-      <p>Click the word if cursor has changed.</p>
+      <p>Click the <span className="listenable" data-say="Привет">words</span> that look like this.</p>
     </section>
   );
 };

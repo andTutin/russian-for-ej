@@ -52,3 +52,9 @@ section p {
   font-size: 2rem;
   text-align: center;
 }
+
+.listenable {
+  padding-bottom: 2px;
+  border-bottom: 1px dotted red;/*rgb(255, 0, 140);*/
+  cursor: pointer;
+}
