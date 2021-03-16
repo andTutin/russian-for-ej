@@ -1,0 +1,23 @@
+.nav {
+  padding: 2rem 0;
+}
+
+.nav__list {
+  display: flex;
+}
+
+.nav__item {
+  margin-right: 20px;
+}
+
+.nav__item a {
+  font-size: 1.4rem;
+}
+
+.nav__item:last-child {
+  margin-right: 0;
+}
+
+.nav__item--active a {
+  color: blue;
+}

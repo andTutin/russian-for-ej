@@ -11,12 +11,13 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { Footer } from "./Footer";
 
 function App() {
   return (
     <Router>
       <Header />
-      <main>
+      <main className="main">
         <Switch>
           <Route path="/" exact component={About} />
           <Route path="/alphabet" component={Alphabet} />
@@ -27,6 +28,7 @@ function App() {
           <Redirect to="/" />
         </Switch>
       </main>
+      <Footer />
     </Router>
   );
 }

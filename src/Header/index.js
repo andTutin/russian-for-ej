@@ -1,13 +1,12 @@
 import { Logo } from "./Logo";
 import { Nav } from "./Nav";
+import "./Header.css";
 
 export const Header = () => {
   return (
-    <header>
-      <nav>
-        <Logo />
-        <Nav />
-      </nav>
+    <header className="header">
+      <Logo />
+      <Nav />
     </header>
   );
 };

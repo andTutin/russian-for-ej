@@ -1,0 +1,31 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 0;
+}
+
+.quotes {
+  padding: 2rem;
+}
+
+.quotes__list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.quotes__item {
+  min-width: 40%;
+  padding: 2rem 0;
+}
+
+.quotes__item:first-child {
+  width: 100%;
+}
+
+.quotes__item:last-child {
+  margin-bottom: 0;
+}
+

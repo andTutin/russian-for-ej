@@ -1,0 +1,23 @@
+.phrasebook {
+    display: flex;
+    padding: 2rem 0;
+    font-size: 1.5rem;
+  }
+  
+  .categories {
+    padding-right: 6rem;
+  }
+
+  .categories__list {
+    list-style-type: none;
+  }
+  
+  .dictionary {
+    flex: 3;
+    border-left: 1px solid #eaeaea;
+    padding-left: 6rem;
+  }
+  
+  .dictionary__list {
+    list-style-type: none;
+  }

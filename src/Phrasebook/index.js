@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSpeaker } from "../Speaker";
 import { useEffect } from "react";
 import { BASE_URL } from "../config";
+import "./Phrasebook.css";
 
 export const Phrasebook = () => {
   const sayit = useSpeaker();
@@ -62,10 +63,10 @@ export const Phrasebook = () => {
   if (isLoading) return null;
 
   return (
-    <> 
+    <>
       {console.log("render phrasebook")}
-      <div style={{ display: "flex", height: "100vh" }}>
-        <div style={{ flex: "1" }}>
+      <div className="phrasebook">
+        <div className="categories">
           {errorCats && (
             <pre>
               "Failed to load Categories list. And this is not my fault"
@@ -86,7 +87,7 @@ export const Phrasebook = () => {
             </article>
           ))}
         </div>
-        <div style={{ flex: "3" }} onClick={sayit}>
+        <div className="dictionary" onClick={sayit}>
           {errorWords && (
             <pre>"Failed to load Words list. And this is not my fault!"</pre>
           )}
