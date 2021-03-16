@@ -1,23 +1,50 @@
 .phrasebook {
-    display: flex;
-    padding: 2rem 0;
-    font-size: 1.5rem;
-  }
-  
-  .categories {
-    padding-right: 6rem;
-  }
+  display: flex;
+  padding: 2rem 0;
+  font-size: 1.5rem;
+}
 
-  .categories__list {
-    list-style-type: none;
-  }
-  
-  .dictionary {
-    flex: 3;
-    border-left: 1px solid #eaeaea;
-    padding-left: 6rem;
-  }
-  
-  .dictionary__list {
-    list-style-type: none;
-  }
+.categories {
+  width: 300px;
+  padding-right: 10px;
+}
+
+.categories__item {
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 15px;
+  border-left: 5px solid blue;
+}
+
+.categories__item:hover {
+  background: #0d6ce93f;
+}
+
+.categories__item:last-of-type {
+  margin-bottom: 0;
+}
+
+.dictionary {
+  flex: 3;
+  border-left: 1px solid #eaeaea;
+  padding-left: 6rem;
+}
+
+.dictionary__item {
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 15px;
+}
+
+.word {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.word__english, .word__russian, .word__translit {
+  flex: 1
+}
+
+.word__english, .word__russian {
+  margin-right: 20px;
+}

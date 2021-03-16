@@ -63,46 +63,45 @@ export const Phrasebook = () => {
   if (isLoading) return null;
 
   return (
-    <>
-      {console.log("render phrasebook")}
-      <div className="phrasebook">
-        <div className="categories">
-          {errorCats && (
-            <pre>
-              "Failed to load Categories list. And this is not my fault"
-            </pre>
-          )}
-          {!errorCats && categories.length === 0 && (
-            <pre>"Categories list is empty"</pre>
-          )}
+    <section className="phrasebook">
+      <div className="categories">
+        {errorCats && (
+          <pre>"Failed to load Categories list. And this is not my fault"</pre>
+        )}
+        {!errorCats && categories.length === 0 && (
+          <pre>"Categories list is empty"</pre>
+        )}
+        <ul className="categories__list">
           {categories.map((c) => (
-            <article key={c._id}>
-              <aside
-                onClick={() => setActiveCategory(c.title)}
-                style={{ cursor: "pointer" }}
-              >
-                <p>{c.title}</p>
-              </aside>
-              <br />
-            </article>
+            <li
+              className="categories__item"
+              key={c._id}
+              onClick={() => setActiveCategory(c.title)}
+            >
+              {c.title}
+            </li>
           ))}
-        </div>
-        <div className="dictionary" onClick={sayit}>
-          {errorWords && (
-            <pre>"Failed to load Words list. And this is not my fault!"</pre>
-          )}
-          {!errorWords && words.length === 0 && (
-            <pre>"There are no words added into this category yet!"</pre>
-          )}
-          <ul>
-            {words.map((w) => (
-              <li key={w._id}>
-                {w.english} - <span data-say={w.russian}>{w.russian}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </ul>
       </div>
-    </>
+      <div className="dictionary" onClick={sayit}>
+        {errorWords && (
+          <pre>"Failed to load Words list. And this is not my fault!"</pre>
+        )}
+        {!errorWords && words.length === 0 && (
+          <pre>"There are no words added into this category yet!"</pre>
+        )}
+        <ul className="dictionary__list">
+          {words.map((w) => (
+            <li className="dictionary__item" key={w._id}>
+              <div className="word">
+                <div className="word__english">{w.english}</div>
+                <div className="word__russian"><span className="listenable" data-say={w.russian}>{w.russian}</span></div>
+                <div className="word__translit">{w.translit || 'translit'}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 };
