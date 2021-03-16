@@ -7,12 +7,14 @@ export const Alphabet = () => {
 
   return (
     <section className="alphabet" onClick={sayit}>
-      <h2 className="section__title">Alphabet</h2>
+      <h1 className="section__title">Alphabet</h1>
       <ul className="alphabet__list">
         {alphabet.map((l) => (
           <li key={l} className="alphabet__item">
             <div className="letter" data-say={l}>
-              {l.toUpperCase()}
+              <span className="listenable" data-say={l}>
+                {l.toUpperCase()}
+              </span>
             </div>
           </li>
         ))}
@@ -35,7 +37,14 @@ export const Alphabet = () => {
               <div className="example__letter">В:</div>
               <div className="example__sound">[v]</div>
               <div className="example__words">
-                Vodka,Venus, Vladimir *RULE8*
+                <span className="listenable" data-say="Водка">
+                  Vodka
+                </span>
+                ,{" "}
+                <span className="listenable" data-say="из рашен планэт">
+                  Venus
+                </span>
+                , Vladimir *RULE8*
               </div>
             </li>
             <li className="example">
@@ -60,7 +69,12 @@ export const Alphabet = () => {
             <li className="example">
               <div className="example__letter">С:</div>
               <div className="example__sound">[s]</div>
-              <div className="example__words">Saturn 5, Soyuz, autoSnort</div>
+              <div className="example__words">
+                Saturn 5,{" "}
+                <span className="listenable" data-say="Снорт">
+                  Снорт
+                </span>
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">У:</div>
@@ -70,7 +84,11 @@ export const Alphabet = () => {
             <li className="example">
               <div className="example__letter">Х:</div>
               <div className="example__sound">[h kh]</div>
-              <div className="example__words">Hard Bass</div>
+              <div className="example__words">
+                <span className="listenable" data-say="Хард басс">
+                  Hard Bass
+                </span>
+              </div>
             </li>
           </ul>
         </div>
@@ -85,12 +103,25 @@ export const Alphabet = () => {
             <li className="example">
               <div className="example__letter">Б:</div>
               <div className="example__sound">[b]</div>
-              <div className="example__words">Buran, Baikonur</div>
+              <div className="example__words">
+                <span className="listenable" data-say="Буран">
+                  Buran
+                </span>
+                {", "}
+                <span className="listenable" data-say="Байконур">
+                  Baikonur
+                </span>{" "}
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">Г:</div>
               <div className="example__sound">[g]</div>
-              <div className="example__words">Gagarin, Glenn</div>
+              <div className="example__words">
+                <span className="listenable" data-say="Гагарин">
+                  Gagarin,
+                </span>{" "}
+                Glenn
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">Д:</div>
@@ -100,7 +131,11 @@ export const Alphabet = () => {
             <li className="example">
               <div className="example__letter">З:</div>
               <div className="example__sound">[z]</div>
-              <div className="example__words">Zvezda</div>
+              <div className="example__words">
+                <span className="listenable" data-say="Звезда">
+                  Zvezda
+                </span>
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">И:</div>
@@ -120,7 +155,12 @@ export const Alphabet = () => {
             <li className="example">
               <div className="example__letter">П:</div>
               <div className="example__sound">[p]</div>
-              <div className="example__words">Perceverance, Progress</div>
+              <div className="example__words">
+                Perceverance,{" "}
+                <span className="listenable" data-say="Прогресс">
+                  Progress
+                </span>
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">Ф:</div>
@@ -130,12 +170,22 @@ export const Alphabet = () => {
             <li className="example">
               <div className="example__letter">Э:</div>
               <div className="example__sound">[a]</div>
-              <div className="example__words">Energia, Eric Johnson</div>
+              <div className="example__words">
+                <span className="listenable" data-say="Энергия">
+                  Energia
+                </span>
+                {", "}
+                Eric Johnson
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">Ю:</div>
               <div className="example__sound">[you]</div>
-              <div className="example__words">Soyuz</div>
+              <div className="example__words">
+                <span className="listenable" data-say="Союз">
+                  Soyuz
+                </span>
+              </div>
             </li>
             <li className="example">
               <div className="example__letter">Я:</div>
@@ -165,14 +215,20 @@ export const Alphabet = () => {
               <div className="example__letter">Ж:</div>
               <div className="example__sound">[zh]</div>
               <div className="example__words">
-                Looks like bug sound like bug
+                Looks like bug sound like{" "}
+                <span className="listenable" data-say="жук">
+                  bug
+                </span>
               </div>
             </li>
             <li className="example">
               <div className="example__letter">Ц:</div>
               <div className="example__sound">[ts, tz]</div>
               <div className="example__words">
-                USS Nimitz, Tsiolkovsky, it's
+                USS Nimitz,{" "}
+                <span className="listenable" data-say="Циолковский">
+                  Tsiolkovsky
+                </span>
               </div>
             </li>
             <li className="example">
