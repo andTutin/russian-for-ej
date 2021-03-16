@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { BASE_URL } from "../config";
+import "./Login.css";
 
 export const Login = () => {
   const [loginStatus, setLoginStatus] = useState(false);
@@ -49,18 +50,9 @@ export const Login = () => {
   if (loginStatus) return <Redirect to="/admin" />;
 
   return (
-    <>
-      {console.log("render login")}
-      <form
-        style={{
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-        onSubmit={loginRequest}
-      >
+    <section className="login">
+      <form className="login__form" onSubmit={loginRequest}>
         <input
-          style={{ margin: "0" }}
           type="text"
           name="nickname"
           id="nickname"
@@ -68,7 +60,6 @@ export const Login = () => {
           onChange={changeHandler}
         />
         <input
-          style={{ margin: "0" }}
           type="password"
           name="password"
           id="password"
@@ -76,23 +67,11 @@ export const Login = () => {
           onChange={changeHandler}
         />
         <button
-          style={{ margin: "0" }}
           disabled={!(form.nickname && form.password)}
         >
           Войти
         </button>
       </form>
-      <br />
-      <br />
-      <h3
-        style={{
-          width: "max-content",
-          margin: "0 auto",
-        }}
-      >
-        This page is for russian viewers. Пиши в личку PyMbIH_, чтобы получить
-        доступ.
-      </h3>
-    </>
+    </section>
   );
 };

@@ -61,14 +61,9 @@ export const RegisterForm = () => {
     <>
       <h3>Зарегистрировать нового пользователя.</h3>
       <form
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
         onSubmit={registerNewUser}
       >
         <input
-          style={{ margin: "0" }}
           type="text"
           name="nickname"
           id="nickname"
@@ -77,7 +72,6 @@ export const RegisterForm = () => {
           value={form.nickname}
         />
         <input
-          style={{ margin: "0" }}
           type="password"
           name="password"
           id="password"
@@ -86,7 +80,6 @@ export const RegisterForm = () => {
           value={form.password}
         />
         <button
-          style={{ margin: "0" }}
           disabled={!(form.nickname && form.password)}
         >
           Зарегистрировать

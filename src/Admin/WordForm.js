@@ -55,18 +55,12 @@ export const WordForm = ({ categories, error }) => {
       <h3>Добавить новое слово.</h3>
       <form
         onSubmit={handleWordSubmit}
-        style={{
-          maxWidth: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
       >
         <input
           type="text"
           placeholder="новое слово англ"
           name="english"
           id="english"
-          style={{ margin: "0" }}
           onChange={changeWordHandler}
           value={word.english}
         />
@@ -75,14 +69,12 @@ export const WordForm = ({ categories, error }) => {
           placeholder="перевод на рус"
           name="russian"
           id="russian"
-          style={{ margin: "0" }}
           onChange={changeWordHandler}
           value={word.russian}
         />
         <select
           id="category"
           name="category"
-          style={{ margin: "0" }}
           value={word.category}
           onChange={changeWordHandler}
         >

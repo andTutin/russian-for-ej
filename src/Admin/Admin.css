@@ -1,0 +1,22 @@
+.admin {
+  padding: 4rem 0;
+}
+
+.admin form {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+}
+
+.admin form input {
+  margin-right: 20px;
+  padding: 10px;
+}
+
+.admin select {
+  margin-right: 20px;
+}
+
+.admin form button {
+  padding: 10px;
+}

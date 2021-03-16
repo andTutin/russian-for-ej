@@ -56,11 +56,6 @@ export const CategoryForm = ({ updateSelector }) => {
       <h3>Добавить новую категорию слов.</h3>
       <form
         onSubmit={handleCategorySubmit}
-        style={{
-          width: "min-content",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
       >
         <input
           type="text"

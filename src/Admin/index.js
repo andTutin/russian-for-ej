@@ -4,6 +4,7 @@ import { WordForm } from "./WordForm";
 import { RegisterForm } from "./RegisterForm";
 import { Redirect } from "react-router-dom";
 import { BASE_URL } from "../config";
+import './Admin.css'
 
 export const Admin = () => {
   const userData = localStorage.getItem("userData");
@@ -60,11 +61,11 @@ export const Admin = () => {
   if (authExpired) return <Redirect to="/login" />;
 
   return (
-    <>
+    <section className="admin">
       {console.log("render admin")}
       <CategoryForm updateSelector={updateSelector} />
       <WordForm categories={categories} error={error} />
       <RegisterForm />
-    </>
+    </section>
   );
 };
