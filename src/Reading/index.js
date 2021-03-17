@@ -1,17 +1,10 @@
-import { useState } from "react";
+import {Splitter} from '../Splitter'
 import { vowels, consonants } from "../Alphabet";
 import { useSpeaker } from "../Speaker";
-import { syllabify } from "syllables-ru";
 import "./Reading.css";
 
 export const Reading = () => {
   const sayit = useSpeaker();
-  const [syllables, setSyllables] = useState("");
-  const [input, setInput] = useState("");
-
-  const hanldeChange = (e) => {
-    setInput(e.target.value);
-  };
 
   return (
     <section className="reading">
@@ -120,34 +113,7 @@ export const Reading = () => {
         Here is the happy little helper. Press button to split, then click
         result to listen the word.
       </p>
-      <form
-        className="split-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSyllables(syllabify(e.target.word.value).split("·").join("-"));
-          setInput("");
-        }}
-      >
-        <input
-          type="text"
-          id="word"
-          name="word"
-          size="20"
-          placeholder="split the word"
-          value={input}
-          onChange={hanldeChange}
-        />
-        <span
-          className="listenable"
-          data-say={syllables.split("-").join("")}
-          onClick={sayit}
-        >
-          {syllables}
-        </span>
-        <button type="submit" disabled={!input.length}>
-          get help
-        </button>
-      </form>
+      <Splitter sayit={sayit} />
     </section>
   );
 };
