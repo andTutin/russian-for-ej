@@ -12,10 +12,24 @@ import {
   Redirect,
 } from "react-router-dom";
 import { Footer } from "./Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { loadingStart } from "./Store/actions";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(loadingStart());
+  }, []);
+
+  if (isLoading)
+    return <div>{console.log("рендер излоадинга")}идет загрузка</div>;
+
   return (
     <Router>
+      {console.log("рендер мэйна")}
       <Header />
       <main className="main">
         <Switch>

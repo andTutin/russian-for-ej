@@ -2,10 +2,14 @@ import { useState } from "react";
 import { useSpeaker } from "../Speaker";
 import { useEffect } from "react";
 import { BASE_URL } from "../config";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentCategory } from "../Store/actions";
 import "./Phrasebook.css";
 
 export const Phrasebook = () => {
+  const dispatch = useDispatch();
   const sayit = useSpeaker();
+  const { currentCategory } = useSelector((state) => state);
   const [activeCategory, setActiveCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [errorCats, setErrorCats] = useState(false);
@@ -60,6 +64,20 @@ export const Phrasebook = () => {
     getWords(activeCategory);
   }, [activeCategory]);
 
+  const clickHandler = (e) => {
+    e.preventDefault();
+
+    if (e.target.dataset.category) {
+      dispatch(setCurrentCategory(e.target.dataset.category));
+    } else {
+      return;
+    }
+  };
+
+  const setClass = (page) => {
+    return page === currentCategory ? "categories__item categories__item--active" : "categories__item";
+  };
+
   if (isLoading) return null;
 
   return (
@@ -71,10 +89,11 @@ export const Phrasebook = () => {
         {!errorCats && categories.length === 0 && (
           <pre>"Categories list is empty"</pre>
         )}
-        <ul className="categories__list">
+        <ul className="categories__list" onClick={clickHandler}>
           {categories.map((c) => (
             <li
-              className="categories__item"
+              className={setClass(c.title)}
+              data-category={c.title}
               key={c._id}
               onClick={() => setActiveCategory(c.title)}
             >
@@ -95,8 +114,12 @@ export const Phrasebook = () => {
             <li className="dictionary__item" key={w._id}>
               <div className="word">
                 <div className="word__english">{w.english}</div>
-                <div className="word__russian"><span className="listenable" data-say={w.russian}>{w.russian}</span></div>
-                <div className="word__translit">{w.translit || 'translit'}</div>
+                <div className="word__russian">
+                  <span className="listenable" data-say={w.russian}>
+                    {w.russian}
+                  </span>
+                </div>
+                <div className="word__translit">{w.translit || "translit"}</div>
               </div>
             </li>
           ))}
