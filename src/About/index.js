@@ -7,6 +7,7 @@ export const About = () => {
 
   return (
     <section className="section home" onClick={sayit}>
+      {console.log("рендер эбаут")}
       <h1 className="section__title">hullo</h1>
       <div className="quotes">
         <ul className="quotes__list">
@@ -29,7 +30,13 @@ export const About = () => {
         This page uses WebSpeech API, which is experimental and works norminal
         only in Google Chrome.
       </p>
-      <p>Click the <span className="listenable" data-say="Привет">words</span> that look like this.</p>
+      <p>
+        Click the{" "}
+        <span className="listenable" data-say="Привет">
+          words
+        </span>{" "}
+        that look like this.
+      </p>
     </section>
   );
 };

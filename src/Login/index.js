@@ -51,6 +51,7 @@ export const Login = () => {
 
   return (
     <section className="login">
+      {console.log("рендер логин")}
       <form className="login__form" onSubmit={loginRequest}>
         <input
           type="text"

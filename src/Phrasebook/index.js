@@ -1,101 +1,44 @@
-import { useState } from "react";
 import { useSpeaker } from "../Speaker";
-import { useEffect } from "react";
-import { BASE_URL } from "../config";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentCategory } from "../Store/actions";
+import { getCategoriesRequest, getWordsRequest, setCurrentCategory } from "../Store/actions";
+import { useEffect } from "react";
 import "./Phrasebook.css";
 
 export const Phrasebook = () => {
   const dispatch = useDispatch();
   const sayit = useSpeaker();
-  const { currentCategory } = useSelector((state) => state);
-  const [activeCategory, setActiveCategory] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [errorCats, setErrorCats] = useState(false);
-  const [errorWords, setErrorWords] = useState(false);
-  const [words, setWords] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}api/category`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-        });
-        const data = await res.json();
+    dispatch(getCategoriesRequest());
+  }, [dispatch]);
 
-        setCategories(data);
-        setActiveCategory(data[0].title);
-      } catch (error) {
-        setErrorCats(true);
-        setErrorWords(true);
-      }
-    };
-
-    getCategories();
-  }, []);
-
-  useEffect(() => {
-    const getWords = async (activeCategory) => {
-      if (!activeCategory) return;
-
-      try {
-        const res = await fetch(
-          `${BASE_URL}api/word/search?category=${activeCategory}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json;charset=utf-8",
-            },
-          }
-        );
-        const data = await res.json();
-        setWords(data);
-        setIsLoading(false);
-      } catch (error) {
-        setErrorWords(true);
-      }
-    };
-
-    getWords(activeCategory);
-  }, [activeCategory]);
+  const { currentCategory, categories, words } = useSelector((state) => state);
 
   const clickHandler = (e) => {
     e.preventDefault();
 
     if (e.target.dataset.category) {
       dispatch(setCurrentCategory(e.target.dataset.category));
-    } else {
-      return;
+      dispatch(getWordsRequest(e.target.dataset.category));
     }
   };
 
   const setClass = (page) => {
-    return page === currentCategory ? "categories__item categories__item--active" : "categories__item";
+    return page === currentCategory
+      ? "categories__item categories__item--active"
+      : "categories__item";
   };
-
-  if (isLoading) return null;
 
   return (
     <section className="phrasebook">
+      {console.log("рендер фрэйзбук")}
       <div className="categories">
-        {errorCats && (
-          <pre>"Failed to load Categories list. And this is not my fault"</pre>
-        )}
-        {!errorCats && categories.length === 0 && (
-          <pre>"Categories list is empty"</pre>
-        )}
         <ul className="categories__list" onClick={clickHandler}>
           {categories.map((c) => (
             <li
               className={setClass(c.title)}
               data-category={c.title}
               key={c._id}
-              onClick={() => setActiveCategory(c.title)}
             >
               {c.title}
             </li>
@@ -103,12 +46,6 @@ export const Phrasebook = () => {
         </ul>
       </div>
       <div className="dictionary" onClick={sayit}>
-        {errorWords && (
-          <pre>"Failed to load Words list. And this is not my fault!"</pre>
-        )}
-        {!errorWords && words.length === 0 && (
-          <pre>"There are no words added into this category yet!"</pre>
-        )}
         <ul className="dictionary__list">
           {words.map((w) => (
             <li className="dictionary__item" key={w._id}>

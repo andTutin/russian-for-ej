@@ -15,6 +15,7 @@ export const Reading = () => {
 
   return (
     <section className="reading">
+      {console.log("рендер ридинг")}
       <h1 className="section__title">Reading</h1>
       <p>
         Reading russian is kinda WYSIWYG. letter = sound. There are some
