@@ -1,5 +1,8 @@
-export const LOADING_START = "LOADING_START";
-export const LOADING_END = "LOADING_END";
+export const LOADING_CATEGORIES_START = "LOADING_CATEGORIES_START";
+export const LOADING_CATEGORIES_END = "LOADING_CATEGORIES_END";
+
+export const LOADING_WORDS_START = "LOADING_WORDS_START";
+export const LOADING_WORDS_END = "LOADING_WORDS_END";
 
 export const GET_CATEGORIES_REQUEST = "GET_CATEGORIES_REQUEST";
 export const GET_CATEGORIES_REQUEST_SUCCESS = "GET_CATEGORIES_REQUEST_SUCCESS";
@@ -12,15 +15,27 @@ export const GET_WORDS_REQUEST_FAILED = "GET_WORDS_REQUEST_FAILED";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_CURRENT_CATEGORY = "SET_CURRENT_CATEGORY";
 
-export const loadingStart = () => {
+export const loadingCategoriesStart = () => {
   return {
-    type: LOADING_START,
+    type: LOADING_CATEGORIES_START,
   };
 };
 
-export const loadingEnd = () => {
+export const loadingCategoriesEnd = () => {
   return {
-    type: LOADING_END,
+    type: LOADING_CATEGORIES_END,
+  };
+};
+
+export const loadingWordsStart = () => {
+  return {
+    type: LOADING_WORDS_START,
+  };
+};
+
+export const loadingWordsEnd = () => {
+  return {
+    type: LOADING_WORDS_END,
   };
 };
 
