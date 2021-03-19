@@ -23,8 +23,15 @@ export const Categories = () => {
         </ul>
       </div>
     );
-    
-  if (categories.length === 0) return null;
+
+  if (categories.length === 0 && !categoriesError)
+    return (
+      <div className="categories">
+        <ul className="categories__list">
+          <li className="categories__failed">No categories yet.</li>
+        </ul>
+      </div>
+    );
 
   return (
     <div className="categories">

@@ -39,7 +39,9 @@ export const appMiddleware = (store) => (next) => (action) => {
         if (response.ok) {
           const categories = await response.json();
           await store.dispatch(getCategoriesRequestSuccess(categories));
-          await store.dispatch(getWordsRequest(categories[0].title));
+
+          if (categories.length !== 0)
+            await store.dispatch(getWordsRequest(categories[0].title));
         } else {
           store.dispatch(getCategoriesRequestFailed({}));
         }
@@ -137,7 +139,7 @@ export const appMiddleware = (store) => (next) => (action) => {
 
         if (response.ok) {
           const { newcategory } = await response.json();
-          
+
           store.dispatch(postCategorySuccess(newcategory));
         } else {
           const code = response.status;
