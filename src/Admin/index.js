@@ -1,47 +1,28 @@
-import { useEffect, useState } from "react";
 import { CategoryForm } from "./CategoryForm";
 import { WordForm } from "./WordForm";
 import { RegisterForm } from "./RegisterForm";
-import { Redirect } from "react-router-dom";
-import { BASE_URL } from "../config";
+import { Login } from "../Login";
+import { checkAuth } from "../Store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import "./Admin.css";
+import { useLayoutEffect } from "react";
 
 export const Admin = () => {
-  const userData = localStorage.getItem("userData");
-  const token = userData ? JSON.parse(userData).token : "invalid_token";
-  const [authExpired, setAuthExpired] = useState(null);
-  const checkAuth = async (token) => {
-    try {
-      const res = await fetch(`${BASE_URL}api/auth/`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const dispatch = useDispatch();
+  const { isAuthorized, isChecking } = useSelector((state) => state);
 
-      if (res.ok) {
-        setAuthExpired(false);
-      } else {
-        setAuthExpired(true);
-      }
-    } catch (error) {
-        setAuthExpired(true);
-    }
-  };
+  useLayoutEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
 
-  useEffect(() => {
-    checkAuth(token);
-  }, [token]);
-
-  if (authExpired === null) return null;
-  if (authExpired) return <Redirect to="/login" />;
+  if (isChecking) return null;
+  if (isAuthorized === false) return <Login />;
 
   return (
-    <>
-      {console.log("render admin")}
-      <CategoryForm token={token}/>
-      <WordForm token={token}/>
-      <RegisterForm token={token}/>
-    </>
+    <section className="admin">
+      <CategoryForm />
+      <WordForm />
+      <RegisterForm />
+    </section>
   );
 };
