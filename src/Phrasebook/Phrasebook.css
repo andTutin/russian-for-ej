@@ -16,6 +16,12 @@
   border-left: 5px solid transparent;
 }
 
+.categories__failed {
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 15px;
+  border-left: 5px solid transparent;
+}
+
 .categories__item--active {
   border-color: blue;
 }
@@ -45,10 +51,13 @@
   justify-content: space-between;
 }
 
-.word__english, .word__russian, .word__translit {
-  flex: 1
+.word__english,
+.word__russian,
+.word__translit {
+  flex: 1;
 }
 
-.word__english, .word__russian {
+.word__english,
+.word__russian {
   margin-right: 20px;
 }

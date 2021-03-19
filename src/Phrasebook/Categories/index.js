@@ -19,7 +19,7 @@ export const Categories = () => {
     return (
       <div className="categories">
         <ul className="categories__list">
-          <li className="categories__item">Failed to load Categories</li>
+          <li className="categories__failed">Failed to load Categories</li>
         </ul>
       </div>
     );
