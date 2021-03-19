@@ -54,7 +54,7 @@ export const Words = ({ sayit }) => {
                     {w.russian}
                   </span>
                 </div>
-                <div className="word__translit">{w.translit || "translit"}</div>
+                <div className="word__translit">{w.translit || ''}</div>
               </div>
             </li>
           ))}

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { BASE_URL } from "../config";
+import { useDispatch, useSelector } from "react-redux";
+import { postWord } from "../Store/actions";
 
-export const WordForm = ({ categories, error }) => {
-  const userData = localStorage.getItem("userData");
-  const token = userData ? JSON.parse(userData).token : "invalid_token";
+export const WordForm = () => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state);
   const [word, setWord] = useState({
     english: "",
     russian: "",
@@ -17,43 +18,16 @@ export const WordForm = ({ categories, error }) => {
     });
   };
 
-  const handleWordSubmit = async (e) => {
+  const addWord = (e) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch(`${BASE_URL}api/word`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(word),
-      });
-
-      if (res.ok) {
-        const { message } = await res.json();
-
-        alert(message);
-        setWord({
-          english: "",
-          russian: "",
-          category: "",
-        });
-      } else {
-        const { message } = await res.json();
-
-        alert(message);
-      }
-    } catch (e) {
-      alert("Что-то пошло не так! Попробуйте снова.");
-    }
+    dispatch(postWord(word));
   };
 
   return (
     <>
-      {error && <pre>Не удалось загрузить список категорий</pre>}
       <h3>Добавить новое слово.</h3>
-      <form onSubmit={handleWordSubmit}>
+      <form onSubmit={addWord}>
         <input
           type="text"
           placeholder="новое слово англ"

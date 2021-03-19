@@ -4,7 +4,6 @@ import { Alphabet } from "./Alphabet";
 import { Reading } from "./Reading";
 import { Phrasebook } from "./Phrasebook";
 import { Admin } from "./Admin";
-import { Login } from "./Login";
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,7 +23,6 @@ function App() {
           <Route path="/reading" component={Reading} />
           <Route path="/phrasebook" component={Phrasebook} />
           <Route path="/admin" component={Admin} />
-          <Route path="/login" component={Login} />
           <Redirect to="/" />
         </Switch>
       </main>

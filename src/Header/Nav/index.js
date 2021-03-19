@@ -6,19 +6,19 @@ import "./Nav.css";
 const navLinks = [
   {
     text: "alphabet",
-    to: "/alphabet",
+    to: "alphabet",
   },
   {
     text: "reading",
-    to: "/reading",
+    to: "reading",
   },
   {
     text: "phrasebook",
-    to: "/phrasebook",
+    to: "phrasebook",
   },
   {
     text: "+",
-    to: "/admin",
+    to: "admin",
   },
 ];
 
@@ -36,13 +36,13 @@ export const Nav = () => {
     <nav className="nav">
       <ul className="nav__list" onClick={clickHandler}>
         {navLinks.map((link) =>
-          link.text === currentPage ? (
+          link.to === currentPage ? (
             <li key={link.text} className="nav__item nav__item--active">
-              <Link to={link.to}>{link.text}</Link>
+              <Link to={`/${link.to}`}>{link.text}</Link>
             </li>
           ) : (
             <li key={link.text} className="nav__item">
-              <Link to={link.to}>{link.text}</Link>
+              <Link to={`/${link.to}`}>{link.text}</Link>
             </li>
           )
         )}
