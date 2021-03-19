@@ -29,7 +29,10 @@ export const Nav = () => {
     e.preventDefault();
 
     if (!e.target.parentElement.classList.contains("nav__item")) return;
-    dispatch(setCurrentPage(e.target.innerText));
+
+    dispatch(
+      setCurrentPage(e.target.innerText === "+" ? "admin" : e.target.innerText)
+    );
   };
 
   return (
