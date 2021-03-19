@@ -54,9 +54,7 @@ export const CategoryForm = ({ updateSelector }) => {
   return (
     <>
       <h3>Добавить новую категорию слов.</h3>
-      <form
-        onSubmit={handleCategorySubmit}
-      >
+      <form onSubmit={handleCategorySubmit}>
         <input
           type="text"
           placeholder="новая категория"

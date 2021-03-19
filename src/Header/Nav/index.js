@@ -3,31 +3,49 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentPage } from "../../Store/actions";
 import "./Nav.css";
 
+const navLinks = [
+  {
+    text: "alphabet",
+    to: "/alphabet",
+  },
+  {
+    text: "reading",
+    to: "/reading",
+  },
+  {
+    text: "phrasebook",
+    to: "/phrasebook",
+  },
+  {
+    text: "+",
+    to: "/admin",
+  },
+];
+
 export const Nav = () => {
   const dispatch = useDispatch();
-  const { currentPage } = useSelector(state=>state);
-  const setClass = (page) => {
-    return page === currentPage ? "nav__item nav__item--active" : "nav__item";
+  const { currentPage } = useSelector((state) => state);
+  const clickHandler = (e) => {
+    e.preventDefault();
+
+    if (!e.target.parentElement.classList.contains("nav__item")) return;
+    dispatch(setCurrentPage(e.target.innerText));
   };
-  const clickHandler = (page) => {
-    dispatch(setCurrentPage(page))
-  }
 
   return (
     <nav className="nav">
-      <ul className="nav__list">
-        <li className={setClass("alphabet")}>
-          <Link to="/alphabet" onClick={() => clickHandler('alphabet')}>Alphabet</Link>
-        </li>
-        <li className={setClass("reading")}>
-          <Link to="/reading" onClick={() => clickHandler('reading')}>Reading</Link>
-        </li>
-        <li className={setClass("phrasebook")}>
-          <Link to="/phrasebook" onClick={() => clickHandler('phrasebook')}>Phrasebook</Link>
-        </li>
-        <li className={setClass("admin")}>
-          <Link to="/admin" onClick={() => clickHandler('admin')}>+</Link>
-        </li>
+      <ul className="nav__list" onClick={clickHandler}>
+        {navLinks.map((link) =>
+          link.text === currentPage ? (
+            <li key={link.text} className="nav__item nav__item--active">
+              <Link to={link.to}>{link.text}</Link>
+            </li>
+          ) : (
+            <li key={link.text} className="nav__item">
+              <Link to={link.to}>{link.text}</Link>
+            </li>
+          )
+        )}
       </ul>
     </nav>
   );

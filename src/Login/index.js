@@ -51,7 +51,6 @@ export const Login = () => {
 
   return (
     <section className="login">
-      {console.log("рендер логин")}
       <form className="login__form" onSubmit={loginRequest}>
         <input
           type="text"
@@ -67,11 +66,7 @@ export const Login = () => {
           placeholder="пароль"
           onChange={changeHandler}
         />
-        <button
-          disabled={!(form.nickname && form.password)}
-        >
-          Войти
-        </button>
+        <button disabled={!(form.nickname && form.password)}>Войти</button>
       </form>
     </section>
   );

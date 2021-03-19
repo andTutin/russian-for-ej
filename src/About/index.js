@@ -7,7 +7,6 @@ export const About = () => {
 
   return (
     <section className="section home" onClick={sayit}>
-      {console.log("рендер эбаут")}
       <h1 className="section__title">hullo</h1>
       <div className="quotes">
         <ul className="quotes__list">

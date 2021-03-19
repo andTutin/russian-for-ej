@@ -60,9 +60,7 @@ export const RegisterForm = () => {
   return (
     <>
       <h3>Зарегистрировать нового пользователя.</h3>
-      <form
-        onSubmit={registerNewUser}
-      >
+      <form onSubmit={registerNewUser}>
         <input
           type="text"
           name="nickname"
@@ -79,9 +77,7 @@ export const RegisterForm = () => {
           onChange={changeHandler}
           value={form.password}
         />
-        <button
-          disabled={!(form.nickname && form.password)}
-        >
+        <button disabled={!(form.nickname && form.password)}>
           Зарегистрировать
         </button>
       </form>

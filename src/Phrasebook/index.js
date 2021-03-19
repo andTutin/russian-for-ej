@@ -1,9 +1,9 @@
 import { useSpeaker } from "../Speaker";
 import { Categories } from "./Categories";
-import {Words} from './Words'
+import { Words } from "./Words";
 import "./Phrasebook.css";
-import {getCategoriesRequest} from '../Store/actions'
-import store from '../Store'
+import { getCategoriesRequest } from "../Store/actions";
+import { store } from "../Store";
 store.dispatch(getCategoriesRequest());
 
 export const Phrasebook = () => {
@@ -11,9 +11,8 @@ export const Phrasebook = () => {
 
   return (
     <section className="phrasebook">
-      {console.log("рендер фрэйзбук")}
       <Categories />
-      <Words sayit={sayit}/>
+      <Words sayit={sayit} />
     </section>
   );
 };

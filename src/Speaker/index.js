@@ -13,9 +13,9 @@ export const SpeakerProvider = ({ children }) => {
 
   const sayit = (phrase) => {
     if (speechSynthesis.speaking) {
-      return
+      return;
     }
-    
+
     u.text = phrase;
     speechSynthesis.speak(u);
   };
@@ -31,4 +31,4 @@ export const SpeakerProvider = ({ children }) => {
   );
 };
 
-export * from './useSpeaker'
+export * from "./useSpeaker";

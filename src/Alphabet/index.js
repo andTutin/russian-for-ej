@@ -7,7 +7,6 @@ export const Alphabet = () => {
 
   return (
     <section className="alphabet" onClick={sayit}>
-      {console.log("рендер алфабэт")}
       <h1 className="section__title">Alphabet</h1>
       <ul className="alphabet__list">
         {alphabet.map((l) => (

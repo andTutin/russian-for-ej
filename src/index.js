@@ -4,7 +4,7 @@ import App from "./App";
 import "./index.css";
 import { SpeakerProvider } from "./Speaker";
 import { Provider } from "react-redux";
-import store from "./Store";
+import { store } from "./Store";
 
 ReactDOM.render(
   <React.StrictMode>

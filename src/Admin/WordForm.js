@@ -53,9 +53,7 @@ export const WordForm = ({ categories, error }) => {
     <>
       {error && <pre>Не удалось загрузить список категорий</pre>}
       <h3>Добавить новое слово.</h3>
-      <form
-        onSubmit={handleWordSubmit}
-      >
+      <form onSubmit={handleWordSubmit}>
         <input
           type="text"
           placeholder="новое слово англ"

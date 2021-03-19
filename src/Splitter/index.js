@@ -13,10 +13,9 @@ export const Splitter = ({ sayit }) => {
         if (!e.target.word.value) return;
 
         setSyllables(syllabify(e.target.word.value).split("·").join("-"));
-        e.target.word.value = ''
+        e.target.word.value = "";
       }}
     >
-      {console.log("рендер сплиттер")}
       <input
         type="text"
         id="word"
@@ -31,9 +30,7 @@ export const Splitter = ({ sayit }) => {
       >
         {syllables}
       </span>
-      <button type="submit">
-        get help
-      </button>
+      <button type="submit">get help</button>
     </form>
   );
 };

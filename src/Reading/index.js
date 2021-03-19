@@ -1,4 +1,4 @@
-import {Splitter} from '../Splitter'
+import { Splitter } from "../Splitter";
 import { vowels, consonants } from "../Alphabet";
 import { useSpeaker } from "../Speaker";
 import "./Reading.css";
@@ -8,7 +8,6 @@ export const Reading = () => {
 
   return (
     <section className="reading">
-      {console.log("рендер ридинг")}
       <h1 className="section__title">Reading</h1>
       <p>
         Reading russian is kinda WYSIWYG. letter = sound. There are some
@@ -88,7 +87,10 @@ export const Reading = () => {
       </div>
       <div className="letters-block" onClick={sayit}>
         <div className="letters-block__title">
-          Lets read word <span className="listenable" data-say="Вдохновение">'Вдохновение'</span>{" "}
+          Lets read word{" "}
+          <span className="listenable" data-say="Вдохновение">
+            'Вдохновение'
+          </span>{" "}
           (inspiration)
         </div>
         <div className="letters-block__description">

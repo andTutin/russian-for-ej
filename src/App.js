@@ -18,7 +18,6 @@ function App() {
     <Router>
       <Header />
       <main className="main">
-        {console.log("рендер мэйна")}
         <Switch>
           <Route path="/" exact component={About} />
           <Route path="/alphabet" component={Alphabet} />
