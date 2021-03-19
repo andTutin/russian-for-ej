@@ -1,8 +1,8 @@
 import {
   GET_CATEGORIES_REQUEST_SUCCESS,
-  //GET_CATEGORIES_REQUEST_FAILED,
+  GET_CATEGORIES_REQUEST_FAILED,
   GET_WORDS_REQUEST_SUCCESS,
-  //GET_WORDS_REQUEST_FAILED,
+  GET_WORDS_REQUEST_FAILED,
   SET_CURRENT_PAGE,
   SET_CURRENT_CATEGORY,
 } from "./actions";
@@ -12,6 +12,8 @@ const initialState = {
   currentCategory: "",
   words: [],
   currentPage: window.location.pathname.split("/").pop(),
+  categoriesError: null,
+  wordsError: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ export const reducer = (state = initialState, action) => {
         ...state,
         categories: action.payload,
       };
+    case GET_CATEGORIES_REQUEST_FAILED:
+      return {
+        ...state,
+        categoriesError: action.error,
+      };
     case SET_CURRENT_CATEGORY:
       return {
         ...state,
@@ -35,6 +42,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         words: action.payload,
+      };
+    case GET_WORDS_REQUEST_FAILED:
+      return {
+        ...state,
+        wordsError: action.error,
       };
     default:
       return state;

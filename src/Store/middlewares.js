@@ -21,10 +21,13 @@ export const appMiddleware = (store) => (next) => (action) => {
           },
         });
 
-        const categories = await response.json();
-        await store.dispatch(getCategoriesRequestSuccess(categories));
-        await store.dispatch(setCurrentCategory(categories[0].title));
-        await store.dispatch(getWordsRequest(categories[0].title));
+        if (response.ok) {
+          const categories = await response.json();
+          await store.dispatch(getCategoriesRequestSuccess(categories));
+          await store.dispatch(getWordsRequest(categories[0].title));
+        } else {
+          store.dispatch(getCategoriesRequestFailed({}));
+        }
       } catch (err) {
         store.dispatch(getCategoriesRequestFailed(err));
       }
@@ -43,10 +46,14 @@ export const appMiddleware = (store) => (next) => (action) => {
             },
           }
         );
-
-        const words = await response.json();
-        await store.dispatch(getWordsRequestSuccess(words));
         await store.dispatch(setCurrentCategory(action.category));
+
+        if (response.ok) {
+          const words = await response.json();
+          await store.dispatch(getWordsRequestSuccess(words));
+        } else {
+          store.dispatch(getWordsRequestFailed({}));
+        }
       } catch (err) {
         store.dispatch(getWordsRequestFailed(err));
       }

@@ -3,7 +3,9 @@ import { getWordsRequest } from "../../Store/actions";
 
 export const Categories = () => {
   const dispatch = useDispatch();
-  const { categories, currentCategory } = useSelector((state) => state);
+  const { categories, currentCategory, categoriesError } = useSelector(
+    (state) => state
+  );
 
   const clickHandler = async (e) => {
     e.preventDefault();
@@ -13,6 +15,15 @@ export const Categories = () => {
     }
   };
 
+  if (categoriesError)
+    return (
+      <div className="categories">
+        <ul className="categories__list">
+          <li className="categories__item">Failed to load Categories</li>
+        </ul>
+      </div>
+    );
+    
   if (categories.length === 0) return null;
 
   return (

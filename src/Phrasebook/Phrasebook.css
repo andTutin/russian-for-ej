@@ -5,8 +5,8 @@
 }
 
 .categories {
-  width: 300px;
-  padding-right: 10px;
+  min-width: 300px;
+  padding-right: 50px;
 }
 
 .categories__item {
