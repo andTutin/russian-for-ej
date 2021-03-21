@@ -9,7 +9,9 @@ import { useLayoutEffect } from "react";
 
 export const Admin = () => {
   const dispatch = useDispatch();
-  const { isAuthorized, isChecking } = useSelector((state) => state);
+  const { isAuthorized, isChecking, alertMessage } = useSelector(
+    (state) => state
+  );
 
   useLayoutEffect(() => {
     dispatch(checkAuth());
@@ -23,6 +25,11 @@ export const Admin = () => {
       <CategoryForm />
       <WordForm />
       <RegisterForm />
+      {alertMessage.code ? (
+        <div style={{ color: "red" }}>{alertMessage.message}</div>
+      ) : (
+        <div style={{ color: "green" }}>{alertMessage.message}</div>
+      )}
     </section>
   );
 };

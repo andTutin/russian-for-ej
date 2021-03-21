@@ -22,6 +22,7 @@ import {
   REGISTRATION_REQUEST,
   registrationRequestSuccess,
   registrationRequestFailed,
+  resetAlertMessage,
 } from "./actions";
 import { BASE_URL } from "../config";
 
@@ -55,7 +56,7 @@ export const appMiddleware = (store) => (next) => (action) => {
     (async () => {
       try {
         const response = await fetch(
-          `${BASE_URL}api/word/search?category=${action.category}`,
+          `${BASE_URL}api/word/search?category=${action.payload}`,
           {
             method: "GET",
             headers: {
@@ -63,7 +64,7 @@ export const appMiddleware = (store) => (next) => (action) => {
             },
           }
         );
-        await store.dispatch(setCurrentCategory(action.category));
+        await store.dispatch(setCurrentCategory(action.payload));
 
         if (response.ok) {
           const words = await response.json();
@@ -134,13 +135,17 @@ export const appMiddleware = (store) => (next) => (action) => {
             "Content-Type": "application/json;charset=utf-8",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ category: action.category }),
+          body: JSON.stringify({ category: action.payload }),
         });
 
         if (response.ok) {
           const { newcategory } = await response.json();
 
           store.dispatch(postCategorySuccess(newcategory));
+
+          setTimeout(() => {
+            store.dispatch(resetAlertMessage());
+          }, 3000);
         } else {
           const code = response.status;
           const { message } = await response.json();
@@ -153,6 +158,10 @@ export const appMiddleware = (store) => (next) => (action) => {
           store.dispatch(checkAuthFailed());
         }
         store.dispatch(postCategoryFailed(error));
+
+        setTimeout(() => {
+          store.dispatch(resetAlertMessage());
+        }, 3000);
       }
     })();
   }
@@ -167,11 +176,15 @@ export const appMiddleware = (store) => (next) => (action) => {
             "Content-Type": "application/json;charset=utf-8",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(action.word),
+          body: JSON.stringify(action.payload),
         });
 
         if (response.ok) {
           store.dispatch(postWordSuccess());
+
+          setTimeout(() => {
+            store.dispatch(resetAlertMessage());
+          }, 3000);
         } else {
           const code = response.status;
           const { message } = await response.json();
@@ -184,6 +197,10 @@ export const appMiddleware = (store) => (next) => (action) => {
           store.dispatch(checkAuthFailed());
         }
         store.dispatch(postWordFailed(error));
+
+        setTimeout(() => {
+          store.dispatch(resetAlertMessage());
+        }, 3000);
       }
     })();
   }
@@ -203,11 +220,26 @@ export const appMiddleware = (store) => (next) => (action) => {
 
         if (response.ok) {
           store.dispatch(registrationRequestSuccess());
+
+          setTimeout(() => {
+            store.dispatch(resetAlertMessage());
+          }, 3000);
         } else {
-          store.dispatch(registrationRequestFailed({}));
+          const code = response.status;
+          const { message } = await response.json();
+          const error = { message, code };
+
+          throw error;
         }
-      } catch (err) {
-        store.dispatch(registrationRequestFailed({}));
+      } catch (error) {
+        if (error.code === 401) {
+          store.dispatch(checkAuthFailed());
+        }
+        store.dispatch(registrationRequestFailed(error));
+
+        setTimeout(() => {
+          store.dispatch(resetAlertMessage());
+        }, 3000);
       }
     })();
   }
