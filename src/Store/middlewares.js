@@ -42,7 +42,7 @@ export const appMiddleware = (store) => (next) => (action) => {
           await store.dispatch(getCategoriesRequestSuccess(categories));
 
           if (categories.length !== 0)
-            await store.dispatch(getWordsRequest(categories[0].title));
+            await store.dispatch(getWordsRequest(categories[0]._id));
         } else {
           store.dispatch(getCategoriesRequestFailed({}));
         }
@@ -56,7 +56,7 @@ export const appMiddleware = (store) => (next) => (action) => {
     (async () => {
       try {
         const response = await fetch(
-          `${BASE_URL}api/word/search?category=${action.payload}`,
+          `${BASE_URL}api/word/search?categoryId=${action.payload}`,
           {
             method: "GET",
             headers: {

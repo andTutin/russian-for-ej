@@ -8,7 +8,7 @@ export const WordForm = () => {
   const [word, setWord] = useState({
     english: "",
     russian: "",
-    category: "",
+    categoryId: "",
   });
 
   const changeWordHandler = (e) => {
@@ -46,15 +46,15 @@ export const WordForm = () => {
         />
         <select
           id="category"
-          name="category"
-          value={word.category}
+          name="categoryId"
+          value={word.categoryId}
           onChange={changeWordHandler}
         >
           <option value="" disabled>
             Выбери категорию:
           </option>
           {categories.map((c) => (
-            <option key={c._id} value={c.title}>
+            <option key={c._id} value={c._id}>
               {c.title}
             </option>
           ))}

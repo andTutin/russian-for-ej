@@ -37,10 +37,10 @@ export const Categories = () => {
     <div className="categories">
       <ul className="categories__list" onClick={clickHandler}>
         {categories.map((c) =>
-          c.title === currentCategory ? (
+          c._id === currentCategory ? (
             <li
               className="categories__item categories__item--active"
-              data-category={c.title}
+              data-category={c._id}
               key={c._id}
             >
               {c.title}
@@ -48,7 +48,7 @@ export const Categories = () => {
           ) : (
             <li
               className="categories__item"
-              data-category={c.title}
+              data-category={c._id}
               key={c._id}
             >
               {c.title}
